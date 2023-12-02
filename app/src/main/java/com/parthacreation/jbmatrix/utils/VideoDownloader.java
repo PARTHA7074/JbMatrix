@@ -1,22 +1,10 @@
 package com.parthacreation.jbmatrix.utils;
-import static android.content.ContentValues.TAG;
-
-import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
-import android.util.Log;
-import android.view.View;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
-
-import com.google.android.material.card.MaterialCardView;
-import com.parthacreation.jbmatrix.activities.MainActivity;
 import com.parthacreation.jbmatrix.activities.VideoPlayerActivity;
 
 import java.util.ArrayList;
@@ -77,7 +65,6 @@ public class VideoDownloader {
                                 if(downloadIndex<videoUrls.size())
                                     downloadVideo(context, videoUrls, progressTextView,downloadCountTV);
                                 else startVideoActivity(context);
-
                                 break;
                             case DownloadManager.STATUS_FAILED:
                                 downloading = false;

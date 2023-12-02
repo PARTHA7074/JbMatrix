@@ -1,21 +1,11 @@
 package com.parthacreation.jbmatrix.activities;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.parthacreation.jbmatrix.databinding.ActivityVideoPlayerBinding;
-import com.parthacreation.jbmatrix.utils.PermissionManager;
 import com.parthacreation.jbmatrix.utils.VideoDownloader;
 
 import android.net.Uri;
-import android.os.Environment;
-import android.util.Log;
 import android.widget.MediaController;
 import android.widget.Toast;
 

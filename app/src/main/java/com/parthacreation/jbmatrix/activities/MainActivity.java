@@ -2,22 +2,14 @@ package com.parthacreation.jbmatrix.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.MediaController;
 import android.widget.Toast;
-
-import com.parthacreation.jbmatrix.R;
 import com.parthacreation.jbmatrix.databinding.ActivityMainBinding;
 import com.parthacreation.jbmatrix.models.VideoItem;
 import com.parthacreation.jbmatrix.models.VideoTabResponse;
 import com.parthacreation.jbmatrix.services.RetrofitAPI;
 import com.parthacreation.jbmatrix.services.VideoApiService;
+import com.parthacreation.jbmatrix.utils.Constants;
 import com.parthacreation.jbmatrix.utils.MyProgressDialog;
 import com.parthacreation.jbmatrix.utils.PermissionManager;
 import com.parthacreation.jbmatrix.utils.VideoDownloader;
@@ -39,7 +31,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.downloadWaitingTV.setText("Please wait for the download to finish\n" +
+                "Video Will start playing after downloading " +Constants.maxVideoDownloadCount+" video");
 
+        if(PermissionManager.checkPermission(this)){
+            fetchVideoTab();
+        }
+    }
+
+    private void fetchVideoTab(){
         MyProgressDialog progressDialog = new MyProgressDialog(binding.downloadingCard);
         progressDialog.show();
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     int i = 0;
                     for (VideoItem item : videoTabResponse.getData()){
                         if(item.getVideoPresent() != null && item.getVideoPresent().equals("yes")) {
-                            if (++i == 6) break;
+                            if (i++ == Constants.maxVideoDownloadCount) break;
                             videoUrls.add(item.getVideo());
                         }
                     }
@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults,this);
+        if(PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults,this)){
+            fetchVideoTab();
+        }
     }
 }

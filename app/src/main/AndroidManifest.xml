@@ -21,10 +21,8 @@
         tools:targetApi="31">
         <activity
             android:name=".activities.VideoPlayerActivity"
-            android:exported="true"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activities.MainActivity"
             android:exported="true"

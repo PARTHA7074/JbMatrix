@@ -16,21 +16,23 @@ public class PermissionManager {
                 activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
             }
             return false;
-        }
-        return true;
+        } else return true;
     }
 
     // Implement this method in your Activity to handle permission request results
-    public static void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults,Activity activity) {
+    public static boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults,Activity activity) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
                 // Handle further operations or start the download process
+                return true;
             } else {
                 // Permission is denied
                 // You can show a message to the user indicating that permission is required for downloading videos
+                return false;
             }
         }
+        return false;
     }
 }
 
